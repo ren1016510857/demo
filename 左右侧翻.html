@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>任豪杰的代码</title>
+<style>
+	*{margin:0; padding:0;}
+	 .box{ width:200px; height:500px; border:2px solid #ccc; margin:50px 30px; /*overflow: hidden;*/}
+    ul {width:200px; height:500px; list-style:none; /*overflow: hidden;*/ position: relative;}
+    li{ width:200px; height:500px; transition:all .5s Linear; transform:rotateY(0deg); transform-origin: right center; position:absolute; top:0; right:0;}
+    .left{ transform:rotateY(90deg); left:0; transform-origin: center center;}
+    .right{ transform:rotateY(90deg); right:0;}
+    .fl{ float:left;}
+    .float_box{}
+
+    .chart{ width:500px; height:500px; border:2px solid red; margin:50px 30px; }
+    .pie_chart{ width:0; height:0;
+        border-radius: 100px; 
+        border-top:87px solid red; 
+        border-bottom:87px solid transparent; 
+        border-left:50px solid transparent; 
+        border-right:50px solid transparent;
+    }
+    .pie_chart1{ border-radius: 100px; border:100px solid blue; border-color:blue transparent transparent transparent;}
+
+    .test{ position:relative; width:50px; height:50px;  border:1px solid #ccc; margin-left:50px;}
+    .test:after{ content:''; position:absolute; left:0; bottom:-200px; width:0; height:0; border-top:100px solid red; border-bottom:100px solid transparent; border-left:25px solid transparent; border-right:25px solid transparent; }
+
+    .transition_test{ width:10px; height:10px; background: red; transition:width 1s ease .5s,height .5s ease 0s;}
+    .transition_test:hover{ width:100px; height:100px;}
+</style>
+</head>
+<body>
+    <div class="box fl">
+        <ul>
+            <li style="background:red;">sadasd</li>
+            <li class="right" style="background:blue;">asdas</li>
+            <li class="right" style="background:green;">asdas</li>
+            <li class="right" style="background:yellow;">dasd</li>
+            <li class="right" style="background:pink;">asdsa</li>
+        </ul> 
+    </div>
+    <div class="fl chart" ><!-- css 饼图 -->
+        <div class="pie_chart fl">
+            
+        </div>
+        <div class="pie_chart1 fl">
+            
+        </div>
+        <div class="test fl">
+            
+        </div>
+    </div>
+    <div class="float_box">
+        <div class="fl" style="width:20px; background:rgba(0,0,0,0.2); height:10px;"></div>
+        <div class="fl" style="width:300px;">asdasdasdsasdasdasda</div>
+    </div>
+    <div class="transition_test fl"></div>
+    <script>
+        console.log(Math.round(Math.cos(30*Math.PI/180)*1000000)/1000000);
+    </script>
+    <script>
+        var aLi = document.querySelectorAll('li');
+        var times = null;
+        var n = 0;
+
+        console.log(aLi[0].style.cssText);
+        //addN();
+        run();
+        function run() {
+            times = setInterval(addN,2000);
+        }
+        function addN(){
+            aLi[n].className = 'left';
+            //widthRun(n);
+            n++ ;
+            aLi[n].className = '';
+            //widthRun(n, true);
+            if(n >= 4) {
+                clearInterval(times);
+            }
+        }
+        function widthRun(n, ok) {
+        	ok = ok || false;
+        	var num = 0;
+        	var times2 = setInterval(function(){
+        		num+=10;
+        		if(num >= 500) {
+        			clearInterval(times2);
+        		}	
+				aLi[n].style.width = Math.round(Math.cos(a2b(90*(ok ? 500-num : num)/500))*200*1000000)/1000000 + 'px';
+        	},10);
+        }
+        //console.log(Math.cos(a2b(30))*5);
+        //角度转弧度
+		function a2b(a)
+		{
+			return Math.PI*a/180;
+		}
+    </script>
+    <script>
+        var str = '99d6dyCrrwvEbNF9ST7tdv7Nx5xJylaNgZydK7oPtOHpFBMC3N4iOg0%2F%2FvzcmeOrlEO%2Bja0jZEvPzOL5C%2Fd3';
+        console.log(unescape('110code'));
+        var arr = [];
+        for(var i=0;i< arr.length;i++){
+            console.log('i')
+        }
+        console.log(0/0);
+    </script>
+</body>
+</html>

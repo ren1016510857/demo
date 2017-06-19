@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任豪杰的代码</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <style>
+        *{ margin: 0; padding: 0; list-style: none}
+        html,body{
+            height:100%;
+            overflow: hidden;
+        }
+        .box{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+        .box header,.box footer{
+            width:100%;
+            height:40px;
+            line-height: 40px;
+            background: #399;
+            text-align: center;
+            color: #fff;
+        }
+        .box footer{
+            position: fixed;
+            left:0;
+            bottom:0;
+        }
+        .box section{
+            width:100%;
+        }
+        .news{
+            width:400%;
+            overflow: hidden;
+        }
+        .news dl{
+            width:25%;
+            float: left;
+        }
+        .news dt{
+            background: -webkit-linear-gradient(#ccc,#999);
+            color: #000;
+            text-shadow: 1px 1px 2px #fff;
+            height:30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .news dd{
+            height:30px;
+            line-height: 30px;
+            border-bottom: 1px dashed #ccc;
+            text-align: center;
+        }
+        .refresh{
+            text-align: center;
+            font-size: 12px;
+            height:0;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            var oNews=document.querySelector('.box .news');
+            var aDl=document.querySelectorAll('.news dl');
+            var oReFresh=document.querySelector('.refresh');
+
+            var x=0;
+            var y=0;
+            var dir='';
+            var iNow=0;
+            oNews.addEventListener('touchstart',function(ev){
+                oNews.style.WebkitTransition='none';
+                oReFresh.style.WebkitTransition='none';
+
+                var downX=ev.targetTouches[0].pageX;
+                var downY=ev.targetTouches[0].pageY;
+                var disX=downX-x;
+                var disY=downY-y;
+
+                function fnMove(ev){
+                    if(dir){
+                        if(dir=='lr'){
+                            x=ev.targetTouches[0].pageX-disX;
+                            oNews.style.WebkitTransform='translate3d('+x+'px,'+y+'px,0)';
+                        }else if(dir=='down'){
+                            //下拉刷新
+                            y=ev.targetTouches[0].pageY-disY;
+
+                            if(y>65){
+                                y=65;
+                            }
+                            oReFresh.style.height=y+'px';
+                        }
+                    }else{
+                        if(Math.abs(ev.targetTouches[0].pageX-downX)>20){
+                            dir='lr';
+                        }else if(Math.abs(ev.targetTouches[0].pageY-downY)>20){
+                            if(downY<ev.targetTouches[0].pageY){
+                                dir='down';
+                            }
+                        }
+                    }
+                }
+                function fnEnd(ev){
+                    oNews.removeEventListener('touchmove',fnMove,false);
+                    oNews.removeEventListener('touchend',fnEnd,false);
+
+                    var upX=ev.changedTouches[0].pageX;
+
+                    oNews.style.WebkitTransition='.4s all ease';
+                    oReFresh.style.WebkitTransition='.4s all ease';
+
+                    if(dir=='lr'){
+                        if(Math.abs(upX-downX)>50){
+                            //可以切换
+                            if(upX<downX){ //++
+                                iNow++;
+                                if(iNow==aDl.length)iNow=aDl.length-1;
+                            }else{
+                                iNow--;
+                                if(iNow==-1)iNow=0;
+                            }
+                        }
+                        x=-iNow*aDl[0].offsetWidth;
+                        oNews.style.WebkitTransform='translate3d('+x+'px,'+y+'px,0)';
+                    }else if(dir=='down'){
+                        y=0;
+                        oReFresh.style.height=y+'px';
+                    }
+
+                    dir='';
+                }
+                oNews.addEventListener('touchmove',fnMove,false);
+                oNews.addEventListener('touchend',fnEnd,false);
+
+                ev.preventDefault();
+            },false);
+        },false);
+    </script>
+</head>
+<body>
+    <div class="box">
+        <header>header</header>
+        <section>
+            <div class="refresh">
+                <img src="roller.gif" alt="">
+                <br>
+                <span>下拉刷新</span>
+            </div>
+            <div class="news">
+                <dl>
+                    <dt>政治新闻</dt>
+                    <dd>1111111</dd>
+                    <dd>2222222</dd>
+                    <dd>333333</dd>
+                    <dd>444444</dd>
+                    <dd>555555555</dd>
+                    <dd>6666666666</dd>
+                    <dd>77777777</dd>
+                    <dd>88888888888</dd>
+                    <dd>99999999</dd>
+                    <dd>000000000000</dd>
+                </dl>
+                <dl>
+                    <dt>娱乐新闻</dt>
+                    <dd>1111111</dd>
+                    <dd>2222222</dd>
+                    <dd>333333</dd>
+                    <dd>444444</dd>
+                    <dd>555555555</dd>
+                    <dd>6666666666</dd>
+                    <dd>77777777</dd>
+                    <dd>88888888888</dd>
+                    <dd>99999999</dd>
+                    <dd>000000000000</dd>
+                </dl>
+                <dl>
+                    <dt>体育新闻</dt>
+                    <dd>1111111</dd>
+                    <dd>2222222</dd>
+                    <dd>333333</dd>
+                    <dd>444444</dd>
+                    <dd>555555555</dd>
+                    <dd>6666666666</dd>
+                    <dd>77777777</dd>
+                    <dd>88888888888</dd>
+                    <dd>99999999</dd>
+                    <dd>000000000000</dd>
+                </dl>
+                <dl>
+                    <dt>科技新闻</dt>
+                    <dd>1111111</dd>
+                    <dd>2222222</dd>
+                    <dd>333333</dd>
+                    <dd>444444</dd>
+                    <dd>555555555</dd>
+                    <dd>6666666666</dd>
+                    <dd>77777777</dd>
+                    <dd>88888888888</dd>
+                    <dd>99999999</dd>
+                    <dd>000000000000</dd>
+                </dl>
+            </div>
+        </section>
+        <footer>footer</footer>
+    </div>
+</body>
+</html>
+
+
+
+
