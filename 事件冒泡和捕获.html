@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>任豪杰的代码</title>
+<style>
+	*{ margin:0; padding:0;}
+	.grandpa{ width:300px; height:300px; background: red; margin:50px auto; overflow:hidden;}
+	.father{ width:200px; height:200px; background: blue; margin:50px auto; overflow:hidden;}
+	.son{ width:100px; height:100px; background: yellow; margin:50px auto;}
+</style>
+</head>
+<body>
+    <div class="grandpa">
+    	<div class="father">
+    		<div class="son"></div>
+    	</div>
+    </div>
+    <script>
+    	var grandpaBox = document.querySelector('.grandpa');
+    	var fatherBox = grandpaBox.querySelector('.father');
+    	var sonBox = fatherBox.querySelector('.son');
+
+    	grandpaBox.addEventListener('click', function() {
+    		console.log('grandpa冒泡')
+    	}, false);
+    	grandpaBox.addEventListener('click', function() {
+    		console.log('grandpa捕获')
+    	}, true);
+
+
+    	fatherBox.addEventListener('click', function() {
+    		console.log('father冒泡')
+    	}, false);
+    	fatherBox.addEventListener('click', function() {
+    		console.log('father捕获')
+    	}, true);
+
+
+    	sonBox.addEventListener('click', function() {
+    		console.log('son冒泡')
+    	}, false);
+    	sonBox.addEventListener('click', function() {
+    		console.log('son捕获')
+    	}, true);
+
+    </script>
+</body>
+</html>

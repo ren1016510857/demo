@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>页面可见性</title>
+<style>
+	*{ margin:0; padding:0;}
+	.center{ position:absolute; width:300px; height:300px; margin:auto; left:0; right:0; top:0; bottom:0; background:rgba(236, 23, 22, 0.2); }
+	.translate{ position:absolute; width:150px; left:50%; top:50%; transform:translate(-50%, -50%); background: rgba(66, 88, 99, 0.5);}
+	ul > li { width:100px; height:100px; border:1px solid #ccc; float:left; font-size: 12px; list-style: none;}
+</style>
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+	<div class="center"></div>
+	<div class="translate">
+		任豪杰的代码任豪杰的代码任豪杰的代码任豪杰的代码任豪杰的代码任豪杰的代码任豪杰的代码任豪杰的代码任豪杰的代码
+	</div>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+    <script>
+    	var oBox = document.querySelector('#box');
+    	oBox.insertAdjacentHTML('beforeEnd','<p>'+document.hidden+'</p>');
+    	oBox.insertAdjacentHTML('beforeEnd','<p>'+document.visibilityState+'</p>');
+    	document.addEventListener('visibilitychange', function() {
+    		oBox.insertAdjacentHTML('beforeEnd','<p>'+document.hidden+'&nbsp;&nbsp;'+new Date()+'</p>');
+    		oBox.insertAdjacentHTML('beforeEnd','<p>'+document.visibilityState+'&nbsp;&nbsp;'+new Date()+'</p>');
+    	}, false);
+    	(function() {
+    		var aLi = document.querySelectorAll('li');
+    		for(var i=0;i<aLi.length;i++) {
+    			aLi[i].onclick = (function(i) {
+    				return function() {
+    					console.log(i);
+    				}
+    			})(i);
+    		}
+    	})();
+    </script>
+    <script>
+    	var now = new Date();
+		var str = '';
+		for (var i = 0; i < 10000; i++) {
+		str += '123456789123456789';
+		}
+		console.log(new Date() - now); 
+		
+		var now = new Date();
+		var strBuffer = [];
+		for (var i = 0; i < 10000; i++) {
+		strBuffer.push('123456789123456789');
+		}
+		var str = strBuffer.join('');
+		console.log(new Date() - now); 
+    </script>
+    <script>
+    	function Vm() {
+    		return {
+    			a() {
+    				console.log(this);
+    				function b() {
+    					console.log(this);
+    				}
+    				b();
+    			}
+    		}
+    	}
+    	new Vm().a();
+    </script>
+    <script>
+    	// console.log('<H1>Chapter 1 - 介绍正则表达式</H1>'.match(/<.*>/));
+    	// console.log('<H1>Chapter 1 - 介绍正则表达式</H1>'.match(/<.*?>/));
+    	// console.log('<H1>Chapter 1 - 介绍正则表达式</H1>'.match(/<\w+?>/));
+
+    	var num = '57456789.00';
+    	num.replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1, $2, $3) {
+			console.log($0 + '$$$' + $1 + '$$$' + $2 + '$$$' + $3);
+		  return $1 + ",";
+		})
+    </script>
+    <script>
+        var allBox = document.getElementsByTagName('body')[0].getElementsByTagName('*');
+        console.log(Array.from(allBox));
+        Array.from(allBox).forEach( (res, index) => {
+            console.log(res.tagName +'  ('+index+') '+ res.className);
+        });
+    </script>
+</body>
+</html>
