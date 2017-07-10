@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>页面可见性</title>
 <style>
-	*{ margin:0; padding:0;}
-	.center{ position:absolute; width:300px; height:300px; margin:auto; left:0; right:0; top:0; bottom:0; background:rgba(236, 23, 22, 0.2); }
-	.translate{ position:absolute; width:150px; left:50%; top:50%; transform:translate(-50%, -50%); background: rgba(66, 88, 99, 0.5);}
-	ul > li { width:100px; height:100px; border:1px solid #ccc; float:left; font-size: 12px; list-style: none;}
+   *{ margin:0; padding:0;}
+    .center{ position:absolute; width:300px; height:300px; margin:auto; left:0; right:0; top:0; bottom:0; background:rgba(236, 23, 22, 0.2); }
+    .translate{ position:absolute; width:150px; left:50%; top:50%; transform:translate(-50%, -50%); background: rgba(66, 88, 99, 0.5);}
+    ul > li { width:100px; height:100px; border:1px solid #ccc; float:left; font-size: 12px; list-style: none;}
+
+    .test_bfc div{width:100px; height:100px; margin:20px; background:blue;}
+    .B{ background:blue;}
+    .b{ background:red;}
 </style>
 </head>
 <body>
@@ -26,6 +30,17 @@
 		<li></li>
 		<li></li>
 	</ul>
+    <br>
+    <select name="" id=""></select>
+    <div class="test_bfc">
+        <div></div>
+        <div style="height:0; min-height:0;"></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="b">asdasds</div>
+    <button id="button">按钮打开新标签页</button>
+    <button id="close">按钮关闭新标签页</button>
     <script>
     	var oBox = document.querySelector('#box');
     	oBox.insertAdjacentHTML('beforeEnd','<p>'+document.hidden+'</p>');
@@ -92,6 +107,72 @@
         Array.from(allBox).forEach( (res, index) => {
             console.log(res.tagName +'  ('+index+') '+ res.className);
         });
+    </script>
+    <script>
+        // window.addEventListener('DOMContentLoaded', function() {
+        //     alert('ready');
+        // }, false);
+        // window.onload = function() {
+        //     alert('onload');
+        // }
+        let arr = ['a','b','c','d','e'];
+        arr.length = 5;
+        arr[0] = 'a';
+
+
+        let obj = new Object();
+        obj[0] = 1;
+        obj['0'] = 2;
+        console.log(obj['0']);//2
+
+        function quickSort(arr){
+            if(arr.length<=1){
+                return arr;//如果数组只有一个数，就直接返回；
+            }
+
+            var num = Math.floor(arr.length/2);//找到中间数的索引值，如果是浮点数，则向下取整
+
+            var numValue = arr.splice(num,1);//找到中间数的值
+            var left = [];
+            var right = [];
+
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]<numValue){
+                    left.push(arr[i]);//基准点的左边的数传到左边数组
+                }
+                else{
+                   right.push(arr[i]);//基准点的右边的数传到右边数组
+                }
+            }
+
+            return quickSort(left).concat([numValue],quickSort(right));//递归不断重复比较
+        }
+
+        console.log(quickSort([32,45,37,16,2,87,5]));//弹出“2,16,32,37,45,87”
+
+        var btn = document.querySelector('#button');
+        var cls = document.querySelector('#close');
+        btn.onclick = function() {
+            window.open('file:///E:/github/demo/%E9%A1%B5%E9%9D%A2%E5%8F%AF%E8%A7%81%E6%80%A7API.html','_blank');
+        };
+        cls.onclick = function() {
+            window.close();
+        }
+
+
+
+        var str = '哈哈哈哈sb';
+        for(var i=0;i<str.length;i++) {
+            console.log(str.charCodeAt(i));
+        }
+
+        var mobileNum = 13691480558.0002;
+        console.log(addKilobit(mobileNum));
+        function addKilobit(n) {
+            return n.toString().replace(/(\d)(?=(\d{3})+\.)/g,function(f1,f2) {
+                return f2 + ',';
+            })
+        }
     </script>
 </body>
 </html>
