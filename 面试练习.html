@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面试练习</title>
+</head>
+<body>
+    <div id="dom1">
+
+    </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        var str = 'dasd';
+        Object.prototype.clone = function() {
+            var obj = this.constructor === Array ? [] : {};
+            for(var key in this) {
+                obj[key] = typeof this[key] === "Object" ? this[key].clone() : this[key];
+            }
+            return obj;
+        };
+        console.log(str.clone()); //并不能很好的实现复制
+
+        //console.log(getLength('abcdefghijklmnopqrstuvwxyz'));
+        function getLength(str) {
+            var length = str.length;
+            var baseNum = length;
+            for(var i=0;i<length;i++) {
+                console.log(str.charCodeAt(i))
+                if(str.charCodeAt(i) > 255) {
+                    baseNum ++;
+                }
+            }
+            return baseNum;
+        }
+        
+
+
+        var _isElement = function(obj) {
+            return !!(obj && obj.nodeType == 1);
+        };
+        console.log('_isElement', _isElement(document.querySelector('#dom1')));
+        var _isArray = Array.isArray || function(obj) {
+            return Object.prototype.toString.call(obj) == '[object Array]';
+        };
+        console.log('_isArray', _isArray('[0,1,2]'));
+        var _isObject = function(obj) {
+            var type = typeof obj;
+            return type === 'function' || type === 'object' && !!obj;//排除null
+        };
+        console.log('_isObject', _isObject(function(){}));
+
+        var _isArguments = function(obj) {
+            return _has(obj, 'callee');
+        };
+
+        var _isNaN = isNaN || function(obj) {
+            var type = typeof obj;
+            return type === 'number' && obj !== +obj;
+        };
+        console.log('_isNaN', _isNaN(NaN));
+
+        var _isBoolean = function(obj) {
+            return obj === true || obj === false || Object.prototype.toString.call(obj) === '[object Boolean]';//new Boolean()
+        };
+        console.log('_isBoolean', _isBoolean(new Boolean));
+        var ___a;
+        var _isUndefined = function(obj) {
+            return  obj === void 0;
+        };
+        console.log('_isUndefined', _isUndefined(___a));
+
+
+
+
+
+
+        var aLi = document.querySelectorAll('li');
+        aLi.forEach((res, index) => {
+            res.innerHTML = index;
+        });
+
+        console.log(Array.prototype.slice.call(aLi, 1));
+
+        //new Base();
+        // var json = {};
+        // json.__proto__ = Base.prototype;
+        // Base.call(json);
+
+
+        var str = 'bXXXbXXXb';
+        console.log(str.match(/(b)(\w+)(b)/)); //贪婪
+        console.log(str.match(/(b)(\w+?)(b)/)); //非贪婪
+
+
+        var a = 2;
+        function foo() {
+        console.log( a );
+        }
+        function bar() {
+            var a = 3;
+            foo();
+        }
+        bar();
+
+
+        //boolean test
+        console.log(new Boolean(false) == false);//true
+        console.log(new Boolean(false) === false);//false
+        console.log(undefined == null);//true
+        console.log(undefined == false);//false
+        console.log(!!undefined);//false
+        console.log(null === null);//true
+        console.log(undefined === undefined);//true
+        
+    </script>
+</body>
+</html>
