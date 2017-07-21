@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        var arr=[2,99,5,77,66,12,14,16,28,55,88,10,3,85,7];
+        //冒泡排序
+        function bubbleSort(arr) {
+            arr = arr || [];
+            var len = arr.length,
+                current;
+            for(var i=0;i<len;i++) {
+                for(var k=0;k<len-1-i;k++) {
+                    if(arr[k] > arr[k+1]) {
+                        current = arr[k];
+                        arr[k] = arr[k+1];
+                        arr[k+1] = current;
+                    }
+                }
+            }
+            return arr;
+        }
+        console.time('冒泡排序');
+		console.log(bubbleSort(arr));
+		console.timeEnd('冒泡排序');
+
+
+        //选择排序
+        function choiceSort(arr) {
+            arr = arr || [];
+            var minIndex,
+                current,
+                len = arr.length;
+            for(var i=0;i<len;i++) {
+                minIndex = i;
+                for(var k=i+1;k<len;k++) {
+                    if(arr[k] < arr[minIndex]) {
+                        minIndex = k;
+                    }
+                }
+                current = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = current;
+            }
+            return arr;
+        }
+        console.time('选择排序');
+		console.log(choiceSort(arr));
+		console.timeEnd('选择排序');
+        
+
+
+        //插入排序：
+        function insertSort(arr) {
+            arr = arr || [];
+            var current,
+                n,
+                len = arr.length;
+            for(var i=1;i<len;i++) {
+                n = i-1;
+                current = arr[i];
+                while(n >= 0 && current < arr[n]) {
+                    arr[n+1] = arr[n];
+                    n--;
+                }
+                arr[n+1] = current;
+            }
+            return arr;
+        }
+        console.time('插入排序');
+		console.log(insertSort(arr));
+		console.timeEnd('插入排序');
+        
+
+        //快速排序
+        function fastSort(arr) {
+            if(arr.length <= 1) {
+                return arr;
+            }
+            var n = Math.floor(arr.length/2);
+            var leftArr = [];
+            var rightArr = [];
+            var current = arr.splice(n,1)[0];
+            for(var i=0;i<arr.length;i++){
+                if(current < arr[i]) {
+                    rightArr.push(arr[i]);
+                }else{
+                    leftArr.push(arr[i]);
+                }
+            }
+            return fastSort(leftArr).concat([current], fastSort(rightArr));
+        }
+        console.time('快速排序');
+		console.log(fastSort(arr));
+		console.timeEnd('快速排序');
+
+
+    </script>
+</body>
+</html>
